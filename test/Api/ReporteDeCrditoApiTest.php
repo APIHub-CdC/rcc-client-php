@@ -16,7 +16,7 @@ class ReporteDeCrditoApiTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $config = new \Rcc\Client\Configuration();
-        $config->setHost('https://services.circulodecredito.com.mx/v2/rcc');
+        $config->setHost('the_url');
         $password = getenv('KEY_PASSWORD');
         $this->signer = new \Rcc\Client\Interceptor\KeyHandler(null, null, $password);
         $events = new \Rcc\Client\Interceptor\MiddlewareEvents($this->signer);
