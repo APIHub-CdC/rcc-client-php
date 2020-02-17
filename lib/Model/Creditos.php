@@ -1,9 +1,9 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
 class Creditos implements ModelInterface, ArrayAccess
 {
@@ -12,7 +12,7 @@ class Creditos implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'Creditos';
     
     protected static $apihubTypes = [
-        'creditos' => '\APIHub\Client\Model\Credito[]'
+        'creditos' => '\Rcc\Client\Model\Credito[]'
     ];
     
     protected static $apihubFormats = [

@@ -1,5 +1,5 @@
 {
-    "name": "/",
+    "name": "apihub-cdc/rcc",
     "description": "",
     "keywords": [
         "apihub",
@@ -7,14 +7,7 @@
         "sdk",
         "api"
     ],
-    "homepage": "http://apihub.io",
-    "license": "proprietary",
-    "authors": [
-        {
-            "name": "APIHub and contributors",
-            "homepage": "https://github.com/apihub-api/apihub-codegen"
-        }
-    ],
+    "homepage": "http://developer.circulodecredito.com.mx",
     "require": {
         "php": ">=5.5",
         "ext-curl": "*",
@@ -29,9 +22,9 @@
         "friendsofphp/php-cs-fixer": "~2.12"
     },
     "autoload": {
-        "psr-4": { "APIHub\\Client\\" : "lib/" }
+        "psr-4": {"Rcc\\Client\\" : "lib/"}
     },
     "autoload-dev": {
-        "psr-4": { "APIHub\\Client\\" : "test/" }
+        "psr-4": {"Rcc\\Client\\" : "test/"}
     }
 }

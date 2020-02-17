@@ -1,9 +1,9 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
 class PersonaRespuesta implements ModelInterface, ArrayAccess
 {
@@ -12,41 +12,39 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'PersonaRespuesta';
     
     protected static $apihubTypes = [
-        'nombres' => 'string',
         'apellido_paterno' => 'string',
         'apellido_materno' => 'string',
         'apellido_adicional' => 'string',
+        'nombres' => 'string',
         'fecha_nacimiento' => 'string',
         'rfc' => 'string',
         'curp' => 'string',
-        'numero_seguridad_social' => 'string',
+        'numero_seguridad_social' => 'int',
         'nacionalidad' => 'string',
-        'residencia' => '\APIHub\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\APIHub\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\APIHub\Client\Model\CatalogoSexo',
-        'clave_elector' => 'string',
-        'numero_dependientes' => 'string',
-        'fecha_defuncion' => 'string',
-        'domicilio' => '\APIHub\Client\Model\Domicilio'
+        'residencia' => '\Rcc\Client\Model\CatalogoResidencia',
+        'estado_civil' => '\Rcc\Client\Model\CatalogoEstadoCivil',
+        'sexo' => '\Rcc\Client\Model\CatalogoSexo',
+        'clave_elector_ife' => 'string',
+        'numero_dependientes' => 'int',
+        'fecha_defuncion' => 'string'
     ];
     
     protected static $apihubFormats = [
-        'nombres' => null,
         'apellido_paterno' => null,
         'apellido_materno' => null,
         'apellido_adicional' => null,
+        'nombres' => null,
         'fecha_nacimiento' => 'yyyy-MM-dd',
         'rfc' => null,
         'curp' => null,
-        'numero_seguridad_social' => null,
+        'numero_seguridad_social' => 'int32',
         'nacionalidad' => null,
         'residencia' => null,
         'estado_civil' => null,
         'sexo' => null,
-        'clave_elector' => null,
-        'numero_dependientes' => null,
-        'fecha_defuncion' => 'yyyy-MM-dd',
-        'domicilio' => null
+        'clave_elector_ife' => null,
+        'numero_dependientes' => 'int32',
+        'fecha_defuncion' => 'yyyy-MM-dd'
     ];
     
     public static function apihubTypes()
@@ -60,29 +58,28 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'nombres' => 'nombres',
         'apellido_paterno' => 'apellidoPaterno',
         'apellido_materno' => 'apellidoMaterno',
         'apellido_adicional' => 'apellidoAdicional',
+        'nombres' => 'nombres',
         'fecha_nacimiento' => 'fechaNacimiento',
-        'rfc' => 'rfc',
-        'curp' => 'curp',
+        'rfc' => 'RFC',
+        'curp' => 'CURP',
         'numero_seguridad_social' => 'numeroSeguridadSocial',
         'nacionalidad' => 'nacionalidad',
         'residencia' => 'residencia',
         'estado_civil' => 'estadoCivil',
         'sexo' => 'sexo',
-        'clave_elector' => 'claveElector',
+        'clave_elector_ife' => 'claveElectorIFE',
         'numero_dependientes' => 'numeroDependientes',
-        'fecha_defuncion' => 'fechaDefuncion',
-        'domicilio' => 'domicilio'
+        'fecha_defuncion' => 'fechaDefuncion'
     ];
     
     protected static $setters = [
-        'nombres' => 'setNombres',
         'apellido_paterno' => 'setApellidoPaterno',
         'apellido_materno' => 'setApellidoMaterno',
         'apellido_adicional' => 'setApellidoAdicional',
+        'nombres' => 'setNombres',
         'fecha_nacimiento' => 'setFechaNacimiento',
         'rfc' => 'setRfc',
         'curp' => 'setCurp',
@@ -91,17 +88,16 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         'residencia' => 'setResidencia',
         'estado_civil' => 'setEstadoCivil',
         'sexo' => 'setSexo',
-        'clave_elector' => 'setClaveElector',
+        'clave_elector_ife' => 'setClaveElectorIfe',
         'numero_dependientes' => 'setNumeroDependientes',
-        'fecha_defuncion' => 'setFechaDefuncion',
-        'domicilio' => 'setDomicilio'
+        'fecha_defuncion' => 'setFechaDefuncion'
     ];
     
     protected static $getters = [
-        'nombres' => 'getNombres',
         'apellido_paterno' => 'getApellidoPaterno',
         'apellido_materno' => 'getApellidoMaterno',
         'apellido_adicional' => 'getApellidoAdicional',
+        'nombres' => 'getNombres',
         'fecha_nacimiento' => 'getFechaNacimiento',
         'rfc' => 'getRfc',
         'curp' => 'getCurp',
@@ -110,10 +106,9 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         'residencia' => 'getResidencia',
         'estado_civil' => 'getEstadoCivil',
         'sexo' => 'getSexo',
-        'clave_elector' => 'getClaveElector',
+        'clave_elector_ife' => 'getClaveElectorIfe',
         'numero_dependientes' => 'getNumeroDependientes',
-        'fecha_defuncion' => 'getFechaDefuncion',
-        'domicilio' => 'getDomicilio'
+        'fecha_defuncion' => 'getFechaDefuncion'
     ];
     
     public static function attributeMap()
@@ -142,10 +137,10 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['nombres'] = isset($data['nombres']) ? $data['nombres'] : null;
         $this->container['apellido_paterno'] = isset($data['apellido_paterno']) ? $data['apellido_paterno'] : null;
         $this->container['apellido_materno'] = isset($data['apellido_materno']) ? $data['apellido_materno'] : null;
         $this->container['apellido_adicional'] = isset($data['apellido_adicional']) ? $data['apellido_adicional'] : null;
+        $this->container['nombres'] = isset($data['nombres']) ? $data['nombres'] : null;
         $this->container['fecha_nacimiento'] = isset($data['fecha_nacimiento']) ? $data['fecha_nacimiento'] : null;
         $this->container['rfc'] = isset($data['rfc']) ? $data['rfc'] : null;
         $this->container['curp'] = isset($data['curp']) ? $data['curp'] : null;
@@ -154,40 +149,24 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         $this->container['residencia'] = isset($data['residencia']) ? $data['residencia'] : null;
         $this->container['estado_civil'] = isset($data['estado_civil']) ? $data['estado_civil'] : null;
         $this->container['sexo'] = isset($data['sexo']) ? $data['sexo'] : null;
-        $this->container['clave_elector'] = isset($data['clave_elector']) ? $data['clave_elector'] : null;
+        $this->container['clave_elector_ife'] = isset($data['clave_elector_ife']) ? $data['clave_elector_ife'] : null;
         $this->container['numero_dependientes'] = isset($data['numero_dependientes']) ? $data['numero_dependientes'] : null;
         $this->container['fecha_defuncion'] = isset($data['fecha_defuncion']) ? $data['fecha_defuncion'] : null;
-        $this->container['domicilio'] = isset($data['domicilio']) ? $data['domicilio'] : null;
     }
     
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['nombres'] === null) {
-            $invalidProperties[] = "'nombres' can't be null";
-        }
-        if ((mb_strlen($this->container['nombres']) > 100)) {
-            $invalidProperties[] = "invalid value for 'nombres', the character length must be smaller than or equal to 100.";
-        }
-        if ((mb_strlen($this->container['nombres']) < 0)) {
-            $invalidProperties[] = "invalid value for 'nombres', the character length must be bigger than or equal to 0.";
-        }
-        if ($this->container['apellido_paterno'] === null) {
-            $invalidProperties[] = "'apellido_paterno' can't be null";
-        }
-        if ((mb_strlen($this->container['apellido_paterno']) > 30)) {
+        if (!is_null($this->container['apellido_paterno']) && (mb_strlen($this->container['apellido_paterno']) > 30)) {
             $invalidProperties[] = "invalid value for 'apellido_paterno', the character length must be smaller than or equal to 30.";
         }
-        if ((mb_strlen($this->container['apellido_paterno']) < 0)) {
+        if (!is_null($this->container['apellido_paterno']) && (mb_strlen($this->container['apellido_paterno']) < 0)) {
             $invalidProperties[] = "invalid value for 'apellido_paterno', the character length must be bigger than or equal to 0.";
         }
-        if ($this->container['apellido_materno'] === null) {
-            $invalidProperties[] = "'apellido_materno' can't be null";
-        }
-        if ((mb_strlen($this->container['apellido_materno']) > 30)) {
+        if (!is_null($this->container['apellido_materno']) && (mb_strlen($this->container['apellido_materno']) > 30)) {
             $invalidProperties[] = "invalid value for 'apellido_materno', the character length must be smaller than or equal to 30.";
         }
-        if ((mb_strlen($this->container['apellido_materno']) < 0)) {
+        if (!is_null($this->container['apellido_materno']) && (mb_strlen($this->container['apellido_materno']) < 0)) {
             $invalidProperties[] = "invalid value for 'apellido_materno', the character length must be bigger than or equal to 0.";
         }
         if (!is_null($this->container['apellido_adicional']) && (mb_strlen($this->container['apellido_adicional']) > 30)) {
@@ -196,38 +175,23 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         if (!is_null($this->container['apellido_adicional']) && (mb_strlen($this->container['apellido_adicional']) < 0)) {
             $invalidProperties[] = "invalid value for 'apellido_adicional', the character length must be bigger than or equal to 0.";
         }
-        if ($this->container['fecha_nacimiento'] === null) {
-            $invalidProperties[] = "'fecha_nacimiento' can't be null";
+        if (!is_null($this->container['nombres']) && (mb_strlen($this->container['nombres']) > 50)) {
+            $invalidProperties[] = "invalid value for 'nombres', the character length must be smaller than or equal to 50.";
         }
-        if ($this->container['rfc'] === null) {
-            $invalidProperties[] = "'rfc' can't be null";
-        }
-        if (!preg_match("/^([A-ZÑ,&amp;]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\\\\d]{3})?$/", $this->container['rfc'])) {
-            $invalidProperties[] = "invalid value for 'rfc', must be conform to the pattern /^([A-ZÑ,&amp;]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\\\\d]{3})?$/.";
-        }
-        if (!is_null($this->container['curp']) && !preg_match("/^([A-Z][AEIOUX][A-Z]{2}\\\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\\\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\\\\d])(\\\\d)$/", $this->container['curp'])) {
-            $invalidProperties[] = "invalid value for 'curp', must be conform to the pattern /^([A-Z][AEIOUX][A-Z]{2}\\\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\\\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\\\\d])(\\\\d)$/.";
-        }
-        if (!is_null($this->container['numero_seguridad_social']) && (mb_strlen($this->container['numero_seguridad_social']) > 11)) {
-            $invalidProperties[] = "invalid value for 'numero_seguridad_social', the character length must be smaller than or equal to 11.";
-        }
-        if (!is_null($this->container['numero_seguridad_social']) && (mb_strlen($this->container['numero_seguridad_social']) < 11)) {
-            $invalidProperties[] = "invalid value for 'numero_seguridad_social', the character length must be bigger than or equal to 11.";
+        if (!is_null($this->container['nombres']) && (mb_strlen($this->container['nombres']) < 0)) {
+            $invalidProperties[] = "invalid value for 'nombres', the character length must be bigger than or equal to 0.";
         }
         if (!is_null($this->container['nacionalidad']) && (mb_strlen($this->container['nacionalidad']) > 2)) {
             $invalidProperties[] = "invalid value for 'nacionalidad', the character length must be smaller than or equal to 2.";
         }
-        if (!is_null($this->container['nacionalidad']) && (mb_strlen($this->container['nacionalidad']) < 2)) {
-            $invalidProperties[] = "invalid value for 'nacionalidad', the character length must be bigger than or equal to 2.";
+        if (!is_null($this->container['nacionalidad']) && (mb_strlen($this->container['nacionalidad']) < 0)) {
+            $invalidProperties[] = "invalid value for 'nacionalidad', the character length must be bigger than or equal to 0.";
         }
-        if (!is_null($this->container['clave_elector']) && (mb_strlen($this->container['clave_elector']) > 20)) {
-            $invalidProperties[] = "invalid value for 'clave_elector', the character length must be smaller than or equal to 20.";
+        if (!is_null($this->container['clave_elector_ife']) && (mb_strlen($this->container['clave_elector_ife']) > 20)) {
+            $invalidProperties[] = "invalid value for 'clave_elector_ife', the character length must be smaller than or equal to 20.";
         }
-        if (!is_null($this->container['clave_elector']) && (mb_strlen($this->container['clave_elector']) < 20)) {
-            $invalidProperties[] = "invalid value for 'clave_elector', the character length must be bigger than or equal to 20.";
-        }
-        if ($this->container['domicilio'] === null) {
-            $invalidProperties[] = "'domicilio' can't be null";
+        if (!is_null($this->container['clave_elector_ife']) && (mb_strlen($this->container['clave_elector_ife']) < 0)) {
+            $invalidProperties[] = "invalid value for 'clave_elector_ife', the character length must be bigger than or equal to 0.";
         }
         return $invalidProperties;
     }
@@ -237,23 +201,6 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getNombres()
-    {
-        return $this->container['nombres'];
-    }
-    
-    public function setNombres($nombres)
-    {
-        if ((mb_strlen($nombres) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $nombres when calling PersonaRespuesta., must be smaller than or equal to 100.');
-        }
-        if ((mb_strlen($nombres) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $nombres when calling PersonaRespuesta., must be bigger than or equal to 0.');
-        }
-        $this->container['nombres'] = $nombres;
-        return $this;
-    }
-    
     public function getApellidoPaterno()
     {
         return $this->container['apellido_paterno'];
@@ -261,10 +208,10 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function setApellidoPaterno($apellido_paterno)
     {
-        if ((mb_strlen($apellido_paterno) > 30)) {
+        if (!is_null($apellido_paterno) && (mb_strlen($apellido_paterno) > 30)) {
             throw new \InvalidArgumentException('invalid length for $apellido_paterno when calling PersonaRespuesta., must be smaller than or equal to 30.');
         }
-        if ((mb_strlen($apellido_paterno) < 0)) {
+        if (!is_null($apellido_paterno) && (mb_strlen($apellido_paterno) < 0)) {
             throw new \InvalidArgumentException('invalid length for $apellido_paterno when calling PersonaRespuesta., must be bigger than or equal to 0.');
         }
         $this->container['apellido_paterno'] = $apellido_paterno;
@@ -278,10 +225,10 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function setApellidoMaterno($apellido_materno)
     {
-        if ((mb_strlen($apellido_materno) > 30)) {
+        if (!is_null($apellido_materno) && (mb_strlen($apellido_materno) > 30)) {
             throw new \InvalidArgumentException('invalid length for $apellido_materno when calling PersonaRespuesta., must be smaller than or equal to 30.');
         }
-        if ((mb_strlen($apellido_materno) < 0)) {
+        if (!is_null($apellido_materno) && (mb_strlen($apellido_materno) < 0)) {
             throw new \InvalidArgumentException('invalid length for $apellido_materno when calling PersonaRespuesta., must be bigger than or equal to 0.');
         }
         $this->container['apellido_materno'] = $apellido_materno;
@@ -305,6 +252,23 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    public function getNombres()
+    {
+        return $this->container['nombres'];
+    }
+    
+    public function setNombres($nombres)
+    {
+        if (!is_null($nombres) && (mb_strlen($nombres) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $nombres when calling PersonaRespuesta., must be smaller than or equal to 50.');
+        }
+        if (!is_null($nombres) && (mb_strlen($nombres) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $nombres when calling PersonaRespuesta., must be bigger than or equal to 0.');
+        }
+        $this->container['nombres'] = $nombres;
+        return $this;
+    }
+    
     public function getFechaNacimiento()
     {
         return $this->container['fecha_nacimiento'];
@@ -323,9 +287,6 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function setRfc($rfc)
     {
-        if ((!preg_match("/^([A-ZÑ,&amp;]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\\\\d]{3})?$/", $rfc))) {
-            throw new \InvalidArgumentException("invalid value for $rfc when calling PersonaRespuesta., must conform to the pattern /^([A-ZÑ,&amp;]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\\\\d]{3})?$/.");
-        }
         $this->container['rfc'] = $rfc;
         return $this;
     }
@@ -337,9 +298,6 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function setCurp($curp)
     {
-        if (!is_null($curp) && (!preg_match("/^([A-Z][AEIOUX][A-Z]{2}\\\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\\\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\\\\d])(\\\\d)$/", $curp))) {
-            throw new \InvalidArgumentException("invalid value for $curp when calling PersonaRespuesta., must conform to the pattern /^([A-Z][AEIOUX][A-Z]{2}\\\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\\\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\\\\d])(\\\\d)$/.");
-        }
         $this->container['curp'] = $curp;
         return $this;
     }
@@ -351,12 +309,6 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     
     public function setNumeroSeguridadSocial($numero_seguridad_social)
     {
-        if (!is_null($numero_seguridad_social) && (mb_strlen($numero_seguridad_social) > 11)) {
-            throw new \InvalidArgumentException('invalid length for $numero_seguridad_social when calling PersonaRespuesta., must be smaller than or equal to 11.');
-        }
-        if (!is_null($numero_seguridad_social) && (mb_strlen($numero_seguridad_social) < 11)) {
-            throw new \InvalidArgumentException('invalid length for $numero_seguridad_social when calling PersonaRespuesta., must be bigger than or equal to 11.');
-        }
         $this->container['numero_seguridad_social'] = $numero_seguridad_social;
         return $this;
     }
@@ -371,8 +323,8 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         if (!is_null($nacionalidad) && (mb_strlen($nacionalidad) > 2)) {
             throw new \InvalidArgumentException('invalid length for $nacionalidad when calling PersonaRespuesta., must be smaller than or equal to 2.');
         }
-        if (!is_null($nacionalidad) && (mb_strlen($nacionalidad) < 2)) {
-            throw new \InvalidArgumentException('invalid length for $nacionalidad when calling PersonaRespuesta., must be bigger than or equal to 2.');
+        if (!is_null($nacionalidad) && (mb_strlen($nacionalidad) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $nacionalidad when calling PersonaRespuesta., must be bigger than or equal to 0.');
         }
         $this->container['nacionalidad'] = $nacionalidad;
         return $this;
@@ -411,20 +363,20 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         return $this;
     }
     
-    public function getClaveElector()
+    public function getClaveElectorIfe()
     {
-        return $this->container['clave_elector'];
+        return $this->container['clave_elector_ife'];
     }
     
-    public function setClaveElector($clave_elector)
+    public function setClaveElectorIfe($clave_elector_ife)
     {
-        if (!is_null($clave_elector) && (mb_strlen($clave_elector) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $clave_elector when calling PersonaRespuesta., must be smaller than or equal to 20.');
+        if (!is_null($clave_elector_ife) && (mb_strlen($clave_elector_ife) > 20)) {
+            throw new \InvalidArgumentException('invalid length for $clave_elector_ife when calling PersonaRespuesta., must be smaller than or equal to 20.');
         }
-        if (!is_null($clave_elector) && (mb_strlen($clave_elector) < 20)) {
-            throw new \InvalidArgumentException('invalid length for $clave_elector when calling PersonaRespuesta., must be bigger than or equal to 20.');
+        if (!is_null($clave_elector_ife) && (mb_strlen($clave_elector_ife) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $clave_elector_ife when calling PersonaRespuesta., must be bigger than or equal to 0.');
         }
-        $this->container['clave_elector'] = $clave_elector;
+        $this->container['clave_elector_ife'] = $clave_elector_ife;
         return $this;
     }
     
@@ -447,17 +399,6 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
     public function setFechaDefuncion($fecha_defuncion)
     {
         $this->container['fecha_defuncion'] = $fecha_defuncion;
-        return $this;
-    }
-    
-    public function getDomicilio()
-    {
-        return $this->container['domicilio'];
-    }
-    
-    public function setDomicilio($domicilio)
-    {
-        $this->container['domicilio'] = $domicilio;
         return $this;
     }
     

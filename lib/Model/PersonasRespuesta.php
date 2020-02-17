@@ -1,15 +1,15 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
-class CatalogoErrores implements ModelInterface, ArrayAccess
+class PersonasRespuesta implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'CatalogoErrores';
+    protected static $apihubModelName = 'PersonasRespuesta';
     
     protected static $apihubTypes = [
         

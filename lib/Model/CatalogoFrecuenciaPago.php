@@ -1,7 +1,7 @@
 <?php
 
-namespace APIHub\Client\Model;
-use \APIHub\Client\ObjectSerializer;
+namespace Rcc\Client\Model;
+use \Rcc\Client\ObjectSerializer;
 
 class CatalogoFrecuenciaPago
 {
