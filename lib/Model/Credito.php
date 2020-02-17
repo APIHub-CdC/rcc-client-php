@@ -1,9 +1,9 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
 class Credito implements ModelInterface, ArrayAccess
 {
@@ -13,18 +13,18 @@ class Credito implements ModelInterface, ArrayAccess
     
     protected static $apihubTypes = [
         'fecha_actualizacion' => 'string',
-        'registro_impugnado' => 'string',
+        'registro_impugnado' => 'int',
         'clave_otorgante' => 'string',
         'nombre_otorgante' => 'string',
         'cuenta_actual' => 'string',
-        'tipo_responsabilidad' => '\APIHub\Client\Model\CatalogoTipoResponsabilidad',
-        'tipo_cuenta' => '\APIHub\Client\Model\CatalogoTipoCuenta',
-        'tipo_credito' => '\APIHub\Client\Model\CatalogoTipoCredito',
-        'clave_unidad_monetaria' => '\APIHub\Client\Model\CatalogoMoneda',
-        'valor_activo_valuacion' => 'string',
-        'numero_pagos' => 'string',
-        'frecuencia_pagos' => '\APIHub\Client\Model\CatalogoFrecuenciaPago',
-        'monto_pagar' => 'string',
+        'tipo_responsabilidad' => '\Rcc\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_cuenta' => '\Rcc\Client\Model\CatalogoTipoCuenta',
+        'tipo_credito' => '\Rcc\Client\Model\CatalogoTipoCredito',
+        'clave_unidad_monetaria' => '\Rcc\Client\Model\CatalogoMoneda',
+        'valor_activo_valuacion' => 'int',
+        'numero_pagos' => 'int',
+        'frecuencia_pagos' => '\Rcc\Client\Model\CatalogoFrecuenciaPago',
+        'monto_pagar' => 'float',
         'fecha_apertura_cuenta' => 'string',
         'fecha_ultimo_pago' => 'string',
         'fecha_ultima_compra' => 'string',
@@ -32,28 +32,29 @@ class Credito implements ModelInterface, ArrayAccess
         'fecha_reporte' => 'string',
         'ultima_fecha_saldo_cero' => 'string',
         'garantia' => 'string',
-        'credito_maximo' => 'string',
-        'saldo_actual' => 'string',
-        'limite_credito' => 'string',
-        'saldo_vencido' => 'string',
-        'numero_pagos_vencidos' => 'string',
+        'credito_maximo' => 'float',
+        'saldo_actual' => 'float',
+        'limite_credito' => 'float',
+        'saldo_vencido' => 'float',
+        'numero_pagos_vencidos' => 'int',
         'pago_actual' => 'string',
         'historico_pagos' => 'string',
         'fecha_reciente_historico_pagos' => 'string',
         'fecha_antigua_historico_pagos' => 'string',
-        'clave_prevencion' => '\APIHub\Client\Model\CatalogoPrevencion',
-        'total_pagos_reportados' => 'string',
-        'peor_atraso' => 'string',
+        'clave_prevencion' => '\Rcc\Client\Model\CatalogoPrevencion',
+        'total_pagos_reportados' => 'int',
+        'peor_atraso' => 'float',
         'fecha_peor_atraso' => 'string',
-        'saldo_vencido_peor_atraso' => 'string',
+        'saldo_vencido_peor_atraso' => 'float',
         'monto_ultimo_pago' => 'double',
         'id_domicilio' => 'string',
-        'servicios' => 'string'
+        'servicios' => 'string',
+        'can' => '\Rcc\Client\Model\CAN'
     ];
     
     protected static $apihubFormats = [
         'fecha_actualizacion' => 'yyyy-MM-dd',
-        'registro_impugnado' => null,
+        'registro_impugnado' => 'int32',
         'clave_otorgante' => null,
         'nombre_otorgante' => null,
         'cuenta_actual' => null,
@@ -61,10 +62,10 @@ class Credito implements ModelInterface, ArrayAccess
         'tipo_cuenta' => null,
         'tipo_credito' => null,
         'clave_unidad_monetaria' => null,
-        'valor_activo_valuacion' => null,
-        'numero_pagos' => null,
+        'valor_activo_valuacion' => 'int32',
+        'numero_pagos' => 'int32',
         'frecuencia_pagos' => null,
-        'monto_pagar' => null,
+        'monto_pagar' => 'float',
         'fecha_apertura_cuenta' => 'yyyy-MM-dd',
         'fecha_ultimo_pago' => 'yyyy-MM-dd',
         'fecha_ultima_compra' => 'yyyy-MM-dd',
@@ -72,23 +73,24 @@ class Credito implements ModelInterface, ArrayAccess
         'fecha_reporte' => 'yyyy-MM-dd',
         'ultima_fecha_saldo_cero' => 'yyyy-MM-dd',
         'garantia' => null,
-        'credito_maximo' => null,
-        'saldo_actual' => null,
-        'limite_credito' => null,
-        'saldo_vencido' => null,
-        'numero_pagos_vencidos' => null,
+        'credito_maximo' => 'float',
+        'saldo_actual' => 'float',
+        'limite_credito' => 'float',
+        'saldo_vencido' => 'float',
+        'numero_pagos_vencidos' => 'int32',
         'pago_actual' => null,
         'historico_pagos' => null,
         'fecha_reciente_historico_pagos' => 'yyyy-MM-dd',
         'fecha_antigua_historico_pagos' => 'yyyy-MM-dd',
         'clave_prevencion' => null,
-        'total_pagos_reportados' => null,
-        'peor_atraso' => null,
+        'total_pagos_reportados' => 'int32',
+        'peor_atraso' => 'float',
         'fecha_peor_atraso' => 'yyyy-MM-dd',
-        'saldo_vencido_peor_atraso' => null,
+        'saldo_vencido_peor_atraso' => 'float',
         'monto_ultimo_pago' => 'double',
         'id_domicilio' => null,
-        'servicios' => null
+        'servicios' => null,
+        'can' => null
     ];
     
     public static function apihubTypes()
@@ -138,7 +140,8 @@ class Credito implements ModelInterface, ArrayAccess
         'saldo_vencido_peor_atraso' => 'saldoVencidoPeorAtraso',
         'monto_ultimo_pago' => 'montoUltimoPago',
         'id_domicilio' => 'idDomicilio',
-        'servicios' => 'servicios'
+        'servicios' => 'servicios',
+        'can' => 'CAN'
     ];
     
     protected static $setters = [
@@ -178,7 +181,8 @@ class Credito implements ModelInterface, ArrayAccess
         'saldo_vencido_peor_atraso' => 'setSaldoVencidoPeorAtraso',
         'monto_ultimo_pago' => 'setMontoUltimoPago',
         'id_domicilio' => 'setIdDomicilio',
-        'servicios' => 'setServicios'
+        'servicios' => 'setServicios',
+        'can' => 'setCan'
     ];
     
     protected static $getters = [
@@ -218,7 +222,8 @@ class Credito implements ModelInterface, ArrayAccess
         'saldo_vencido_peor_atraso' => 'getSaldoVencidoPeorAtraso',
         'monto_ultimo_pago' => 'getMontoUltimoPago',
         'id_domicilio' => 'getIdDomicilio',
-        'servicios' => 'getServicios'
+        'servicios' => 'getServicios',
+        'can' => 'getCan'
     ];
     
     public static function attributeMap()
@@ -284,22 +289,29 @@ class Credito implements ModelInterface, ArrayAccess
         $this->container['monto_ultimo_pago'] = isset($data['monto_ultimo_pago']) ? $data['monto_ultimo_pago'] : null;
         $this->container['id_domicilio'] = isset($data['id_domicilio']) ? $data['id_domicilio'] : null;
         $this->container['servicios'] = isset($data['servicios']) ? $data['servicios'] : null;
+        $this->container['can'] = isset($data['can']) ? $data['can'] : null;
     }
     
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if (!is_null($this->container['id_domicilio']) && (mb_strlen($this->container['id_domicilio']) > 20)) {
-            $invalidProperties[] = "invalid value for 'id_domicilio', the character length must be smaller than or equal to 20.";
+        if (!is_null($this->container['clave_otorgante']) && (mb_strlen($this->container['clave_otorgante']) > 10)) {
+            $invalidProperties[] = "invalid value for 'clave_otorgante', the character length must be smaller than or equal to 10.";
         }
-        if (!is_null($this->container['id_domicilio']) && (mb_strlen($this->container['id_domicilio']) < 0)) {
-            $invalidProperties[] = "invalid value for 'id_domicilio', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['clave_otorgante']) && (mb_strlen($this->container['clave_otorgante']) < 0)) {
+            $invalidProperties[] = "invalid value for 'clave_otorgante', the character length must be bigger than or equal to 0.";
         }
-        if (!is_null($this->container['servicios']) && (mb_strlen($this->container['servicios']) > 1)) {
-            $invalidProperties[] = "invalid value for 'servicios', the character length must be smaller than or equal to 1.";
+        if (!is_null($this->container['nombre_otorgante']) && (mb_strlen($this->container['nombre_otorgante']) > 40)) {
+            $invalidProperties[] = "invalid value for 'nombre_otorgante', the character length must be smaller than or equal to 40.";
         }
-        if (!is_null($this->container['servicios']) && (mb_strlen($this->container['servicios']) < 0)) {
-            $invalidProperties[] = "invalid value for 'servicios', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['nombre_otorgante']) && (mb_strlen($this->container['nombre_otorgante']) < 0)) {
+            $invalidProperties[] = "invalid value for 'nombre_otorgante', the character length must be bigger than or equal to 0.";
+        }
+        if (!is_null($this->container['cuenta_actual']) && (mb_strlen($this->container['cuenta_actual']) > 25)) {
+            $invalidProperties[] = "invalid value for 'cuenta_actual', the character length must be smaller than or equal to 25.";
+        }
+        if (!is_null($this->container['cuenta_actual']) && (mb_strlen($this->container['cuenta_actual']) < 0)) {
+            $invalidProperties[] = "invalid value for 'cuenta_actual', the character length must be bigger than or equal to 0.";
         }
         return $invalidProperties;
     }
@@ -338,6 +350,12 @@ class Credito implements ModelInterface, ArrayAccess
     
     public function setClaveOtorgante($clave_otorgante)
     {
+        if (!is_null($clave_otorgante) && (mb_strlen($clave_otorgante) > 10)) {
+            throw new \InvalidArgumentException('invalid length for $clave_otorgante when calling Credito., must be smaller than or equal to 10.');
+        }
+        if (!is_null($clave_otorgante) && (mb_strlen($clave_otorgante) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $clave_otorgante when calling Credito., must be bigger than or equal to 0.');
+        }
         $this->container['clave_otorgante'] = $clave_otorgante;
         return $this;
     }
@@ -349,6 +367,12 @@ class Credito implements ModelInterface, ArrayAccess
     
     public function setNombreOtorgante($nombre_otorgante)
     {
+        if (!is_null($nombre_otorgante) && (mb_strlen($nombre_otorgante) > 40)) {
+            throw new \InvalidArgumentException('invalid length for $nombre_otorgante when calling Credito., must be smaller than or equal to 40.');
+        }
+        if (!is_null($nombre_otorgante) && (mb_strlen($nombre_otorgante) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $nombre_otorgante when calling Credito., must be bigger than or equal to 0.');
+        }
         $this->container['nombre_otorgante'] = $nombre_otorgante;
         return $this;
     }
@@ -360,6 +384,12 @@ class Credito implements ModelInterface, ArrayAccess
     
     public function setCuentaActual($cuenta_actual)
     {
+        if (!is_null($cuenta_actual) && (mb_strlen($cuenta_actual) > 25)) {
+            throw new \InvalidArgumentException('invalid length for $cuenta_actual when calling Credito., must be smaller than or equal to 25.');
+        }
+        if (!is_null($cuenta_actual) && (mb_strlen($cuenta_actual) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $cuenta_actual when calling Credito., must be bigger than or equal to 0.');
+        }
         $this->container['cuenta_actual'] = $cuenta_actual;
         return $this;
     }
@@ -701,12 +731,6 @@ class Credito implements ModelInterface, ArrayAccess
     
     public function setIdDomicilio($id_domicilio)
     {
-        if (!is_null($id_domicilio) && (mb_strlen($id_domicilio) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $id_domicilio when calling Credito., must be smaller than or equal to 20.');
-        }
-        if (!is_null($id_domicilio) && (mb_strlen($id_domicilio) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $id_domicilio when calling Credito., must be bigger than or equal to 0.');
-        }
         $this->container['id_domicilio'] = $id_domicilio;
         return $this;
     }
@@ -718,13 +742,18 @@ class Credito implements ModelInterface, ArrayAccess
     
     public function setServicios($servicios)
     {
-        if (!is_null($servicios) && (mb_strlen($servicios) > 1)) {
-            throw new \InvalidArgumentException('invalid length for $servicios when calling Credito., must be smaller than or equal to 1.');
-        }
-        if (!is_null($servicios) && (mb_strlen($servicios) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $servicios when calling Credito., must be bigger than or equal to 0.');
-        }
         $this->container['servicios'] = $servicios;
+        return $this;
+    }
+    
+    public function getCan()
+    {
+        return $this->container['can'];
+    }
+    
+    public function setCan($can)
+    {
+        $this->container['can'] = $can;
         return $this;
     }
     

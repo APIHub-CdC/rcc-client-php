@@ -5,18 +5,20 @@ namespace Rcc\Client\Model;
 use \ArrayAccess;
 use \Rcc\Client\ObjectSerializer;
 
-class Errores implements ModelInterface, ArrayAccess
+class Mensaje implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Errores';
+    protected static $apihubModelName = 'Mensaje';
     
     protected static $apihubTypes = [
-        'errores' => '\Rcc\Client\Model\Error[]'
+        'tipo_mensaje' => 'int',
+        'leyenda' => 'string'
     ];
     
     protected static $apihubFormats = [
-        'errores' => null
+        'tipo_mensaje' => 'int32',
+        'leyenda' => null
     ];
     
     public static function apihubTypes()
@@ -30,15 +32,18 @@ class Errores implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'errores' => 'errores'
+        'tipo_mensaje' => 'tipoMensaje',
+        'leyenda' => 'leyenda'
     ];
     
     protected static $setters = [
-        'errores' => 'setErrores'
+        'tipo_mensaje' => 'setTipoMensaje',
+        'leyenda' => 'setLeyenda'
     ];
     
     protected static $getters = [
-        'errores' => 'getErrores'
+        'tipo_mensaje' => 'getTipoMensaje',
+        'leyenda' => 'getLeyenda'
     ];
     
     public static function attributeMap()
@@ -67,12 +72,16 @@ class Errores implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['errores'] = isset($data['errores']) ? $data['errores'] : null;
+        $this->container['tipo_mensaje'] = isset($data['tipo_mensaje']) ? $data['tipo_mensaje'] : null;
+        $this->container['leyenda'] = isset($data['leyenda']) ? $data['leyenda'] : null;
     }
     
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+        if (!is_null($this->container['leyenda']) && (mb_strlen($this->container['leyenda']) > 100)) {
+            $invalidProperties[] = "invalid value for 'leyenda', the character length must be smaller than or equal to 100.";
+        }
         return $invalidProperties;
     }
     
@@ -81,14 +90,28 @@ class Errores implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrores()
+    public function getTipoMensaje()
     {
-        return $this->container['errores'];
+        return $this->container['tipo_mensaje'];
     }
     
-    public function setErrores($errores)
+    public function setTipoMensaje($tipo_mensaje)
     {
-        $this->container['errores'] = $errores;
+        $this->container['tipo_mensaje'] = $tipo_mensaje;
+        return $this;
+    }
+    
+    public function getLeyenda()
+    {
+        return $this->container['leyenda'];
+    }
+    
+    public function setLeyenda($leyenda)
+    {
+        if (!is_null($leyenda) && (mb_strlen($leyenda) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $leyenda when calling Mensaje., must be smaller than or equal to 100.');
+        }
+        $this->container['leyenda'] = $leyenda;
         return $this;
     }
     

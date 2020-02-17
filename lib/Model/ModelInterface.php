@@ -1,6 +1,6 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 interface ModelInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace APIHub\Client\Api;
+namespace Rcc\Client\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -8,12 +8,12 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use APIHub\Client\ApiException;
-use APIHub\Client\Configuration;
-use APIHub\Client\HeaderSelector;
-use APIHub\Client\ObjectSerializer;
+use Rcc\Client\ApiException;
+use Rcc\Client\Configuration;
+use Rcc\Client\HeaderSelector;
+use Rcc\Client\ObjectSerializer;
 
-class ReporteDeCrditoApi
+class ReporteDeCrditoConsolidadoApi
 {
     
     protected $client;
@@ -45,7 +45,7 @@ class ReporteDeCrditoApi
     
     public function getConsultasWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Consultas';
+        $returnType = '\Rcc\Client\Model\Consultas';
         $request = $this->getConsultasRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
@@ -91,7 +91,7 @@ class ReporteDeCrditoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Consultas',
+                        '\Rcc\Client\Model\Consultas',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -99,7 +99,7 @@ class ReporteDeCrditoApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -107,7 +107,7 @@ class ReporteDeCrditoApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -115,7 +115,7 @@ class ReporteDeCrditoApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -123,7 +123,7 @@ class ReporteDeCrditoApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -131,7 +131,7 @@ class ReporteDeCrditoApi
                 case 410:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -139,7 +139,7 @@ class ReporteDeCrditoApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -147,7 +147,7 @@ class ReporteDeCrditoApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -169,7 +169,7 @@ class ReporteDeCrditoApi
     
     public function getConsultasAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Consultas';
+        $returnType = '\Rcc\Client\Model\Consultas';
         $request = $this->getConsultasRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -235,6 +235,7 @@ class ReporteDeCrditoApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
         if ($x_api_key !== null) {
             $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
         }
@@ -264,8 +265,14 @@ class ReporteDeCrditoApi
         }
         if (isset($_tempBody)) {
             $httpBody = $_tempBody;
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -309,7 +316,7 @@ class ReporteDeCrditoApi
     
     public function getCreditosWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Creditos';
+        $returnType = '\Rcc\Client\Model\Creditos';
         $request = $this->getCreditosRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
@@ -355,7 +362,7 @@ class ReporteDeCrditoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Creditos',
+                        '\Rcc\Client\Model\Creditos',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -363,7 +370,7 @@ class ReporteDeCrditoApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -371,7 +378,7 @@ class ReporteDeCrditoApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -379,7 +386,7 @@ class ReporteDeCrditoApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -387,7 +394,7 @@ class ReporteDeCrditoApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -395,7 +402,7 @@ class ReporteDeCrditoApi
                 case 410:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -403,7 +410,7 @@ class ReporteDeCrditoApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -411,7 +418,7 @@ class ReporteDeCrditoApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -433,7 +440,7 @@ class ReporteDeCrditoApi
     
     public function getCreditosAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Creditos';
+        $returnType = '\Rcc\Client\Model\Creditos';
         $request = $this->getCreditosRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -499,6 +506,7 @@ class ReporteDeCrditoApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
         if ($x_api_key !== null) {
             $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
         }
@@ -528,8 +536,14 @@ class ReporteDeCrditoApi
         }
         if (isset($_tempBody)) {
             $httpBody = $_tempBody;
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -573,7 +587,7 @@ class ReporteDeCrditoApi
     
     public function getDomiciliosWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Domicilios';
+        $returnType = '\Rcc\Client\Model\DomiciliosRespuesta';
         $request = $this->getDomiciliosRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
@@ -619,7 +633,7 @@ class ReporteDeCrditoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Domicilios',
+                        '\Rcc\Client\Model\DomiciliosRespuesta',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -627,7 +641,7 @@ class ReporteDeCrditoApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -635,7 +649,7 @@ class ReporteDeCrditoApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -643,7 +657,7 @@ class ReporteDeCrditoApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -651,7 +665,7 @@ class ReporteDeCrditoApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -659,7 +673,7 @@ class ReporteDeCrditoApi
                 case 410:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -667,7 +681,7 @@ class ReporteDeCrditoApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -675,7 +689,7 @@ class ReporteDeCrditoApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -697,7 +711,7 @@ class ReporteDeCrditoApi
     
     public function getDomiciliosAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Domicilios';
+        $returnType = '\Rcc\Client\Model\DomiciliosRespuesta';
         $request = $this->getDomiciliosRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -763,6 +777,7 @@ class ReporteDeCrditoApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
         if ($x_api_key !== null) {
             $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
         }
@@ -792,8 +807,14 @@ class ReporteDeCrditoApi
         }
         if (isset($_tempBody)) {
             $httpBody = $_tempBody;
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -837,7 +858,7 @@ class ReporteDeCrditoApi
     
     public function getEmpleosWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Empleos';
+        $returnType = '\Rcc\Client\Model\Empleos';
         $request = $this->getEmpleosRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
@@ -883,7 +904,7 @@ class ReporteDeCrditoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Empleos',
+                        '\Rcc\Client\Model\Empleos',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -891,7 +912,7 @@ class ReporteDeCrditoApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -899,7 +920,7 @@ class ReporteDeCrditoApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -907,7 +928,7 @@ class ReporteDeCrditoApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -915,7 +936,7 @@ class ReporteDeCrditoApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -923,7 +944,7 @@ class ReporteDeCrditoApi
                 case 410:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -931,7 +952,7 @@ class ReporteDeCrditoApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -939,7 +960,7 @@ class ReporteDeCrditoApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -961,7 +982,7 @@ class ReporteDeCrditoApi
     
     public function getEmpleosAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Empleos';
+        $returnType = '\Rcc\Client\Model\Empleos';
         $request = $this->getEmpleosRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1027,6 +1048,7 @@ class ReporteDeCrditoApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
         if ($x_api_key !== null) {
             $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
         }
@@ -1056,8 +1078,14 @@ class ReporteDeCrditoApi
         }
         if (isset($_tempBody)) {
             $httpBody = $_tempBody;
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1093,16 +1121,16 @@ class ReporteDeCrditoApi
         );
     }
     
-    public function getReporte($x_api_key, $username, $password, $request, $x_segmented_report = 'true')
+    public function getMensajes($folio_consulta, $x_api_key, $username, $password)
     {
-        list($response) = $this->getReporteWithHttpInfo($x_api_key, $username, $password, $request, $x_segmented_report);
+        list($response) = $this->getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password);
         return $response;
     }
     
-    public function getReporteWithHttpInfo($x_api_key, $username, $password, $request, $x_segmented_report = 'true')
+    public function getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Respuesta';
-        $request = $this->getReporteRequest($x_api_key, $username, $password, $request, $x_segmented_report);
+        $returnType = '\Rcc\Client\Model\Mensajes';
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1147,7 +1175,7 @@ class ReporteDeCrditoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Respuesta',
+                        '\Rcc\Client\Model\Mensajes',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1155,7 +1183,7 @@ class ReporteDeCrditoApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1163,7 +1191,7 @@ class ReporteDeCrditoApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1171,7 +1199,7 @@ class ReporteDeCrditoApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1179,7 +1207,15 @@ class ReporteDeCrditoApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 410:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1187,7 +1223,7 @@ class ReporteDeCrditoApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1195,7 +1231,7 @@ class ReporteDeCrditoApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\APIHub\Client\Model\Errores',
+                        '\Rcc\Client\Model\Errores',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1205,9 +1241,9 @@ class ReporteDeCrditoApi
         }
     }
     
-    public function getReporteAsync($x_api_key, $username, $password, $request, $x_segmented_report = 'true')
+    public function getMensajesAsync($folio_consulta, $x_api_key, $username, $password)
     {
-        return $this->getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $request, $x_segmented_report)
+        return $this->getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1215,10 +1251,10 @@ class ReporteDeCrditoApi
             );
     }
     
-    public function getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $request, $x_segmented_report = 'true')
+    public function getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
-        $returnType = '\APIHub\Client\Model\Respuesta';
-        $request = $this->getReporteRequest($x_api_key, $username, $password, $request, $x_segmented_report);
+        $returnType = '\Rcc\Client\Model\Mensajes';
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
@@ -1255,7 +1291,270 @@ class ReporteDeCrditoApi
             );
     }
     
-    protected function getReporteRequest($x_api_key, $username, $password, $request, $x_segmented_report = 'true')
+    protected function getMensajesRequest($folio_consulta, $x_api_key, $username, $password)
+    {
+        if ($folio_consulta === null || (is_array($folio_consulta) && count($folio_consulta) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $folio_consulta when calling getMensajes'
+            );
+        }
+        if ($x_api_key === null || (is_array($x_api_key) && count($x_api_key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $x_api_key when calling getMensajes'
+            );
+        }
+        if ($username === null || (is_array($username) && count($username) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $username when calling getMensajes'
+            );
+        }
+        if ($password === null || (is_array($password) && count($password) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $password when calling getMensajes'
+            );
+        }
+        $resourcePath = '/{folioConsulta}/mensajes';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        if ($x_api_key !== null) {
+            $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
+        }
+        if ($username !== null) {
+            $headerParams['username'] = ObjectSerializer::toHeaderValue($username);
+        }
+        if ($password !== null) {
+            $headerParams['password'] = ObjectSerializer::toHeaderValue($password);
+        }
+        if ($folio_consulta !== null) {
+            $resourcePath = str_replace(
+                '{' . 'folioConsulta' . '}',
+                ObjectSerializer::toPathValue($folio_consulta),
+                $resourcePath
+            );
+        }
+        $_tempBody = null;
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody;
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+            } else {
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+    
+    public function getReporte($x_api_key, $username, $password, $request, $x_full_report = null)
+    {
+        list($response) = $this->getReporteWithHttpInfo($x_api_key, $username, $password, $request, $x_full_report);
+        return $response;
+    }
+    
+    public function getReporteWithHttpInfo($x_api_key, $username, $password, $request, $x_full_report = null)
+    {
+        $returnType = '\Rcc\Client\Model\Respuesta';
+        $request = $this->getReporteRequest($x_api_key, $username, $password, $request, $x_full_report);
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+            $statusCode = $response->getStatusCode();
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody;
+            } else {
+                $content = $responseBody->getContents();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Respuesta',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Rcc\Client\Model\Errores',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+    
+    public function getReporteAsync($x_api_key, $username, $password, $request, $x_full_report = null)
+    {
+        return $this->getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $request, $x_full_report)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+    
+    public function getReporteAsyncWithHttpInfo($x_api_key, $username, $password, $request, $x_full_report = null)
+    {
+        $returnType = '\Rcc\Client\Model\Respuesta';
+        $request = $this->getReporteRequest($x_api_key, $username, $password, $request, $x_full_report);
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody;
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+    
+    protected function getReporteRequest($x_api_key, $username, $password, $request, $x_full_report = null)
     {
         if ($x_api_key === null || (is_array($x_api_key) && count($x_api_key) === 0)) {
             throw new \InvalidArgumentException(
@@ -1283,6 +1582,7 @@ class ReporteDeCrditoApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+        
         if ($x_api_key !== null) {
             $headerParams['x-api-key'] = ObjectSerializer::toHeaderValue($x_api_key);
         }
@@ -1292,8 +1592,8 @@ class ReporteDeCrditoApi
         if ($password !== null) {
             $headerParams['password'] = ObjectSerializer::toHeaderValue($password);
         }
-        if ($x_segmented_report !== null) {
-            $headerParams['x-segmented-report'] = ObjectSerializer::toHeaderValue($x_segmented_report);
+        if ($x_full_report !== null) {
+            $headerParams['x-full-report'] = ObjectSerializer::toHeaderValue($x_full_report);
         }
         $_tempBody = null;
         if (isset($request)) {
@@ -1311,8 +1611,14 @@ class ReporteDeCrditoApi
         }
         if (isset($_tempBody)) {
             $httpBody = $_tempBody;
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            
+            if($headers['Content-Type'] === 'application/json') {
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

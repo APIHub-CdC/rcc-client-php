@@ -1,9 +1,9 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
 class Error implements ModelInterface, ArrayAccess
 {
