@@ -1,16 +1,16 @@
 <?php
 
-namespace APIHub\Client\Model;
-use \APIHub\Client\ObjectSerializer;
+namespace Rcc\Client\Model;
+use \Rcc\Client\ObjectSerializer;
 
 class CatalogoResidencia
 {
     
-    const _1 = '1';
-    const _2 = '2';
-    const _3 = '3';
-    const _4 = '4';
-    const _5 = '5';
+    const _1 = 1;
+    const _2 = 2;
+    const _3 = 3;
+    const _4 = 4;
+    const _5 = 5;
     
     
     public static function getAllowableEnumValues()

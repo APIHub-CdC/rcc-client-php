@@ -1,9 +1,9 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
 class Consultas implements ModelInterface, ArrayAccess
 {
@@ -12,7 +12,7 @@ class Consultas implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'Consultas';
     
     protected static $apihubTypes = [
-        'consultas' => '\APIHub\Client\Model\Consulta[]'
+        'consultas' => '\Rcc\Client\Model\Consulta[]'
     ];
     
     protected static $apihubFormats = [

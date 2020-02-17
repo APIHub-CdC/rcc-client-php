@@ -1,22 +1,22 @@
 <?php
 
-namespace APIHub\Client\Model;
+namespace Rcc\Client\Model;
 
 use \ArrayAccess;
-use \APIHub\Client\ObjectSerializer;
+use \Rcc\Client\ObjectSerializer;
 
-class Domicilios implements ModelInterface, ArrayAccess
+class Mensajes implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Domicilios';
+    protected static $apihubModelName = 'Mensajes';
     
     protected static $apihubTypes = [
-        'domicilios' => '\APIHub\Client\Model\Domicilio[]'
+        'mensajes' => '\Rcc\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [
-        'domicilios' => null
+        'mensajes' => null
     ];
     
     public static function apihubTypes()
@@ -30,15 +30,15 @@ class Domicilios implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'domicilios' => 'domicilios'
+        'mensajes' => 'mensajes'
     ];
     
     protected static $setters = [
-        'domicilios' => 'setDomicilios'
+        'mensajes' => 'setMensajes'
     ];
     
     protected static $getters = [
-        'domicilios' => 'getDomicilios'
+        'mensajes' => 'getMensajes'
     ];
     
     public static function attributeMap()
@@ -67,7 +67,7 @@ class Domicilios implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['domicilios'] = isset($data['domicilios']) ? $data['domicilios'] : null;
+        $this->container['mensajes'] = isset($data['mensajes']) ? $data['mensajes'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +81,14 @@ class Domicilios implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getDomicilios()
+    public function getMensajes()
     {
-        return $this->container['domicilios'];
+        return $this->container['mensajes'];
     }
     
-    public function setDomicilios($domicilios)
+    public function setMensajes($mensajes)
     {
-        $this->container['domicilios'] = $domicilios;
+        $this->container['mensajes'] = $mensajes;
         return $this;
     }
     

@@ -5,18 +5,18 @@ namespace Rcc\Client\Model;
 use \ArrayAccess;
 use \Rcc\Client\ObjectSerializer;
 
-class Errores implements ModelInterface, ArrayAccess
+class DomiciliosRespuesta implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Errores';
+    protected static $apihubModelName = 'DomiciliosRespuesta';
     
     protected static $apihubTypes = [
-        'errores' => '\Rcc\Client\Model\Error[]'
+        'domicilios' => '\Rcc\Client\Model\DomicilioRespuesta[]'
     ];
     
     protected static $apihubFormats = [
-        'errores' => null
+        'domicilios' => null
     ];
     
     public static function apihubTypes()
@@ -30,15 +30,15 @@ class Errores implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'errores' => 'errores'
+        'domicilios' => 'domicilios'
     ];
     
     protected static $setters = [
-        'errores' => 'setErrores'
+        'domicilios' => 'setDomicilios'
     ];
     
     protected static $getters = [
-        'errores' => 'getErrores'
+        'domicilios' => 'getDomicilios'
     ];
     
     public static function attributeMap()
@@ -67,7 +67,7 @@ class Errores implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['errores'] = isset($data['errores']) ? $data['errores'] : null;
+        $this->container['domicilios'] = isset($data['domicilios']) ? $data['domicilios'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +81,14 @@ class Errores implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrores()
+    public function getDomicilios()
     {
-        return $this->container['errores'];
+        return $this->container['domicilios'];
     }
     
-    public function setErrores($errores)
+    public function setDomicilios($domicilios)
     {
-        $this->container['errores'] = $errores;
+        $this->container['domicilios'] = $domicilios;
         return $this;
     }
     
