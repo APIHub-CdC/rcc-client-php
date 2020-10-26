@@ -1,6 +1,6 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 interface ModelInterface
 {

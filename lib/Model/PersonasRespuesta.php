@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class PersonasRespuesta implements ModelInterface, ArrayAccess
 {

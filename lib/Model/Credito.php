@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class Credito implements ModelInterface, ArrayAccess
 {
@@ -17,13 +17,13 @@ class Credito implements ModelInterface, ArrayAccess
         'clave_otorgante' => 'string',
         'nombre_otorgante' => 'string',
         'cuenta_actual' => 'string',
-        'tipo_responsabilidad' => '\Rcc\Client\Model\CatalogoTipoResponsabilidad',
-        'tipo_cuenta' => '\Rcc\Client\Model\CatalogoTipoCuenta',
-        'tipo_credito' => '\Rcc\Client\Model\CatalogoTipoCredito',
-        'clave_unidad_monetaria' => '\Rcc\Client\Model\CatalogoMoneda',
+        'tipo_responsabilidad' => '\RCC\MX\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_cuenta' => '\RCC\MX\Client\Model\CatalogoTipoCuenta',
+        'tipo_credito' => '\RCC\MX\Client\Model\CatalogoTipoCredito',
+        'clave_unidad_monetaria' => '\RCC\MX\Client\Model\CatalogoMoneda',
         'valor_activo_valuacion' => 'int',
         'numero_pagos' => 'int',
-        'frecuencia_pagos' => '\Rcc\Client\Model\CatalogoFrecuenciaPago',
+        'frecuencia_pagos' => '\RCC\MX\Client\Model\CatalogoFrecuenciaPago',
         'monto_pagar' => 'float',
         'fecha_apertura_cuenta' => 'string',
         'fecha_ultimo_pago' => 'string',
@@ -41,7 +41,7 @@ class Credito implements ModelInterface, ArrayAccess
         'historico_pagos' => 'string',
         'fecha_reciente_historico_pagos' => 'string',
         'fecha_antigua_historico_pagos' => 'string',
-        'clave_prevencion' => '\Rcc\Client\Model\CatalogoPrevencion',
+        'clave_prevencion' => '\RCC\MX\Client\Model\CatalogoPrevencion',
         'total_pagos_reportados' => 'int',
         'peor_atraso' => 'float',
         'fecha_peor_atraso' => 'string',
@@ -49,7 +49,7 @@ class Credito implements ModelInterface, ArrayAccess
         'monto_ultimo_pago' => 'double',
         'id_domicilio' => 'string',
         'servicios' => 'string',
-        'can' => '\Rcc\Client\Model\CAN'
+        'can' => '\RCC\MX\Client\Model\CAN'
     ];
     
     protected static $apihubFormats = [

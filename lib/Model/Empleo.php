@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class Empleo implements ModelInterface, ArrayAccess
 {
@@ -17,14 +17,14 @@ class Empleo implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\Rcc\Client\Model\CatalogoEstados',
+        'estado' => '\RCC\MX\Client\Model\CatalogoEstados',
         'cp' => 'int',
         'numero_telefono' => 'string',
         'extension' => 'string',
         'fax' => 'string',
         'puesto' => 'string',
         'fecha_contratacion' => 'string',
-        'clave_moneda' => '\Rcc\Client\Model\CatalogoMoneda',
+        'clave_moneda' => '\RCC\MX\Client\Model\CatalogoMoneda',
         'salario_mensual' => 'float',
         'fecha_ultimo_dia_empleo' => 'string',
         'fecha_verificacion_empleo' => 'string'

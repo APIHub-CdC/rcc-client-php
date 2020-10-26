@@ -1,30 +1,36 @@
-<?php
+ <?php
 
-namespace Rcc\Client;
+namespace RCC\MX\Client;
 
 use \GuzzleHttp\Client;
 use \GuzzleHttp\HandlerStack as handlerStack;
 
-use \Rcc\Client\ApiException;
-use \Rcc\Client\Configuration;
-use \Rcc\Client\Model\Error;
-use \Rcc\Client\Interceptor\KeyHandler;
-use \Rcc\Client\Interceptor\MiddlewareEvents;
+use Signer\Manager\ApiException;
+use Signer\Manager\Interceptor\MiddlewareEvents;
+use Signer\Manager\Interceptor\KeyHandler;
+
+use \RCC\MX\Client\ObjectSerializer;
+use \RCC\MX\Client\Api\RCCApi as Instance;
+use \RCC\MX\Client\Configuration;
+use \RCC\MX\Client\Model\Error;
+use \RCC\MX\Client\Model\CatalogoEstados;
+use \RCC\MX\Client\Model\PersonaPeticion;
+use \RCC\MX\Client\Model\DomicilioPeticion;
 
 class ReporteDeCrditoApiTest extends \PHPUnit_Framework_TestCase
 {   
     public function setUp()
     {
-        $config = new \Rcc\Client\Configuration();
+        $config = new Configuration();
         $config->setHost('the_url');
         $password = getenv('KEY_PASSWORD');
-        $this->signer = new \Rcc\Client\Interceptor\KeyHandler(null, null, $password);
-        $events = new \Rcc\Client\Interceptor\MiddlewareEvents($this->signer);
-        $handler = \GuzzleHttp\HandlerStack::create();
+        $this->signer = new KeyHandler(null, null, $password);
+        $events = new MiddlewareEvents($this->signer);
+        $handler = HandlerStack::create();
         $handler->push($events->add_signature_header('x-signature'));
         $handler->push($events->verify_signature_header('x-signature'));
-        $client = new \GuzzleHttp\Client(['handler' => $handler]);
-        $this->apiInstance = new \Rcc\Client\Api\ReporteDeCrditoConsolidadoApi($client, $config);
+        $client = new Client(['handler' => $handler]);
+        $this->apiInstance = new Instance($client, $config);
         $this->x_api_key = "your_api_key";
         $this->username = "your_username";
         $this->password = "your_password";
@@ -32,27 +38,32 @@ class ReporteDeCrditoApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReporte()
     {
-        $x_full_report = false;
+        $x_full_report = true;
 
-        $request = new \Rcc\Client\Model\PersonaPeticion();
-        $request->setPrimerNombre("XXXXXX");
-        $request->setApellidoPaterno("XXXXXX");
-        $request->setApellidoMaterno("XXXXXX");
-        $request->setFechaNacimiento("yyyy-MM-dd");
-        $request->setRfc("XXXXXX");
+        $estado = new CatalogoEstados();
+        $request = new PersonaPeticion();
+
+        $request->setPrimerNombre("JUAN");
+        $request->setApellidoPaterno("PRUEBA");
+        $request->setApellidoMaterno("SIETE");
+        $request->setFechaNacimiento("1980-01-07");
+        $request->setRfc("PUAC800107");
         $request->setNacionalidad("MX");
-        $dom = new \Rcc\Client\Model\DomicilioPeticion();
-        $dom->setDireccion("XXXXXX");
-        $dom->setColoniaPoblacion("XXXXXX");
-        $dom->setDelegacionMunicipio("XXXXXX");
-        $dom->setCiudad("XXXXXX");
-        $dom->setEstado("DF");
-        $dom->setCP("XXXXX");
+
+        $dom = new DomicilioPeticion();
+        $dom->setDireccion("INSURGENTES SUR 1001");
+        $dom->setColoniaPoblacion("INSURGENTES SUR");
+        $dom->setDelegacionMunicipio("CIUDAD DE MEXICO");
+        $dom->setCiudad("CIUDAD DE MEXICO");
+        $dom->setEstado($estado::DF);
+        $dom->setCP("11230");
+
         $request->setDomicilio($dom);
 
         try {
             $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $x_full_report);
             $this->assertTrue($result->getFolioConsulta()!==null);
+            print_r($result);            
             echo "testGetReporte finished\n";
             return $result->getFolioConsulta();
         } catch (Exception $e) {
@@ -131,3 +142,4 @@ class ReporteDeCrditoApiTest extends \PHPUnit_Framework_TestCase
         }
     }
 }
+
