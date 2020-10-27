@@ -1,7 +1,7 @@
 <?php
 
-namespace Rcc\Client\Model;
-use \Rcc\Client\ObjectSerializer;
+namespace RCC\MX\Client\Model;
+use \RCC\MX\Client\ObjectSerializer;
 
 class CatalogoSexo
 {

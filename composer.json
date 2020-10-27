@@ -1,5 +1,5 @@
 {
-    "name": "apihub-cdc/rcc",
+    "name": "apihub-cdc/rcc-client",
     "description": "",
     "keywords": [
         "apihub",
@@ -14,7 +14,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^6.2",
-        "monolog/monolog": "^1.24"
+        "monolog/monolog": "^1.24",
+        "apihub-cdc/signature-manager": "^1.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
@@ -22,9 +23,9 @@
         "friendsofphp/php-cs-fixer": "~2.12"
     },
     "autoload": {
-        "psr-4": {"Rcc\\Client\\" : "lib/"}
+        "psr-4": { "RCC\\MX\\Client\\" : "lib/" }
     },
     "autoload-dev": {
-        "psr-4": {"Rcc\\Client\\" : "test/"}
+        "psr-4": { "RCC\\MX\\Client\\" : "test/" }
     }
 }

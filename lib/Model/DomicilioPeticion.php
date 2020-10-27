@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class DomicilioPeticion implements ModelInterface, ArrayAccess
 {
@@ -16,12 +16,12 @@ class DomicilioPeticion implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\Rcc\Client\Model\CatalogoEstados',
+        'estado' => '\RCC\MX\Client\Model\CatalogoEstados',
         'cp' => 'string',
         'fecha_residencia' => 'string',
         'numero_telefono' => 'string',
-        'tipo_domicilio' => '\Rcc\Client\Model\CatalogoTipoDomicilio',
-        'tipo_asentamiento' => '\Rcc\Client\Model\CatalogoTipoAsentamiento'
+        'tipo_domicilio' => '\RCC\MX\Client\Model\CatalogoTipoDomicilio',
+        'tipo_asentamiento' => '\RCC\MX\Client\Model\CatalogoTipoAsentamiento'
     ];
     
     protected static $apihubFormats = [

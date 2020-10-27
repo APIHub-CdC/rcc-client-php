@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class DomiciliosRespuesta implements ModelInterface, ArrayAccess
 {
@@ -12,7 +12,7 @@ class DomiciliosRespuesta implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'DomiciliosRespuesta';
     
     protected static $apihubTypes = [
-        'domicilios' => '\Rcc\Client\Model\DomicilioRespuesta[]'
+        'domicilios' => '\RCC\MX\Client\Model\DomicilioRespuesta[]'
     ];
     
     protected static $apihubFormats = [
