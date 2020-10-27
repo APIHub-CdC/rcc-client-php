@@ -8,6 +8,13 @@
         "api"
     ],
     "homepage": "http://developer.circulodecredito.com.mx",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "APIHub and contributors",
+            "homepage": "https://github.com/APIHub-CdC"
+        }
+    ],    
     "require": {
         "php": ">=5.5",
         "ext-curl": "*",
