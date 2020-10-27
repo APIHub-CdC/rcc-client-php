@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class Consulta implements ModelInterface, ArrayAccess
 {
@@ -18,9 +18,9 @@ class Consulta implements ModelInterface, ArrayAccess
         'direccion_otorgante' => 'string',
         'telefono_otorgante' => 'string',
         'tipo_credito' => 'string',
-        'clave_unidad_monetaria' => '\Rcc\Client\Model\CatalogoMoneda',
+        'clave_unidad_monetaria' => '\RCC\MX\Client\Model\CatalogoMoneda',
         'importe_credito' => 'float',
-        'tipo_responsabilidad' => '\Rcc\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_responsabilidad' => '\RCC\MX\Client\Model\CatalogoTipoResponsabilidad',
         'id_domicilio' => 'string',
         'servicios' => 'string'
     ];

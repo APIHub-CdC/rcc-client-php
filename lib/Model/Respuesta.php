@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class Respuesta implements ModelInterface, ArrayAccess
 {
@@ -16,12 +16,12 @@ class Respuesta implements ModelInterface, ArrayAccess
         'folio_consulta_otorgante' => 'string',
         'clave_otorgante' => 'string',
         'declaraciones_consumidor' => 'string',
-        'persona' => '\Rcc\Client\Model\PersonasRespuesta',
-        'consultas' => '\Rcc\Client\Model\Consulta[]',
-        'creditos' => '\Rcc\Client\Model\Credito[]',
-        'domicilios' => '\Rcc\Client\Model\DomicilioRespuesta[]',
-        'empleos' => '\Rcc\Client\Model\Empleo[]',
-        'mensajes' => '\Rcc\Client\Model\Mensaje[]'
+        'persona' => '\RCC\MX\Client\Model\PersonasRespuesta',
+        'consultas' => '\RCC\MX\Client\Model\Consulta[]',
+        'creditos' => '\RCC\MX\Client\Model\Credito[]',
+        'domicilios' => '\RCC\MX\Client\Model\DomicilioRespuesta[]',
+        'empleos' => '\RCC\MX\Client\Model\Empleo[]',
+        'mensajes' => '\RCC\MX\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [

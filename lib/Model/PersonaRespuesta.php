@@ -1,9 +1,9 @@
 <?php
 
-namespace Rcc\Client\Model;
+namespace RCC\MX\Client\Model;
 
 use \ArrayAccess;
-use \Rcc\Client\ObjectSerializer;
+use \RCC\MX\Client\ObjectSerializer;
 
 class PersonaRespuesta implements ModelInterface, ArrayAccess
 {
@@ -21,9 +21,9 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         'curp' => 'string',
         'numero_seguridad_social' => 'int',
         'nacionalidad' => 'string',
-        'residencia' => '\Rcc\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\Rcc\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\Rcc\Client\Model\CatalogoSexo',
+        'residencia' => '\RCC\MX\Client\Model\CatalogoResidencia',
+        'estado_civil' => '\RCC\MX\Client\Model\CatalogoEstadoCivil',
+        'sexo' => '\RCC\MX\Client\Model\CatalogoSexo',
         'clave_elector_ife' => 'string',
         'numero_dependientes' => 'int',
         'fecha_defuncion' => 'string'

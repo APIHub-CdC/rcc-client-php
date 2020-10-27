@@ -1,6 +1,6 @@
 <?php
 
-namespace Rcc\Client;
+namespace RCC\MX\Client;
 
 use \Exception;
 

@@ -19,11 +19,15 @@ apt-get install php7.3-mbstring
 ## Instalación
 
 Ejecutar: `composer install`
+
 ## Guía de inicio
+
 ### Paso 1. Generar llave y certificado
+
 - Se tiene que tener un contenedor en formato PKCS12.
-- En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** ó con los siguientes comandos.
-- **opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
+- En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** o con los siguientes comandos.
+
+**Opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
 ```sh
 export KEY_PASSWORD=your_password
 ```
@@ -54,7 +58,9 @@ openssl pkcs12 -name ${ALIAS} \
     -inkey ${PRIVATE_KEY_FILE} \
     -in ${CERTIFICATE_FILE} -password pass:${KEY_PASSWORD}
 ```
+
 ### Paso 2. Cargar el certificado dentro del portal de desarrolladores
+
  1. Iniciar sesión.
  2. Dar clic en la sección "**Mis aplicaciones**".
  3. Seleccionar la aplicación.
@@ -62,11 +68,13 @@ openssl pkcs12 -name ${ALIAS} \
     <p align="center">
       <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/applications.png">
     </p>
- 5. Al abrirse la ventana emergente, seleccionar el certificado previamente creado y dar clic en el botón "**Cargar**":
+ 5. Al abrirse la ventana, seleccionar el certificado previamente creado y dar clic en el botón "**Cargar**":
     <p align="center">
-      <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/upload_cert.png" width="268">
+      <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/upload_cert.png">
     </p>
+
 ### Paso 3. Descargar el certificado de Círculo de Crédito dentro del portal de desarrolladores
+
  1. Iniciar sesión.
  2. Dar clic en la sección "**Mis aplicaciones**".
  3. Seleccionar la aplicación.
@@ -74,94 +82,94 @@ openssl pkcs12 -name ${ALIAS} \
     <p align="center">
         <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/applications.png">
     </p>
- 5. Al abrirse la ventana emergente, dar clic al botón "**Descargar**":
+ 5. Al abrirse la ventana, dar clic al botón "**Descargar**":
     <p align="center">
-        <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/download_cert.png" width="268">
+        <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/download_cert.png">
     </p>
  > Es importante que este contenedor sea almacenado en la siguiente ruta:
  > **/path/to/repository/lib/Interceptor/keypair.p12**
  >
- > Así mismo el certificado proporcionado por círculo de crédito en la siguiente ruta:
+ > Así mismo el certificado proporcionado por Círculo de Crédito en la siguiente ruta:
  > **/path/to/repository/lib/Interceptor/cdc_cert.pem**
 - En caso de que no se almacene así, se debe especificar la ruta donde se encuentra el contenedor y el certificado. Ver el siguiente ejemplo:
 ```php
 $password = getenv('KEY_PASSWORD');
-$this->signer = new \APIHub\Client\Interceptor\KeyHandler(
+$this->signer = new KeyHandler(
     "/example/route/keypair.p12",
     "/example/route/cdc_cert.pem",
     $password
 );
 ```
- > **NOTA:** Sólamente en caso de que el contenedor haya cifrado, se debe colocar la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
-### Paso 4. Modificar URL
- Modificar la URL de la petición en ***lib/Configuration.php*** en la línea 19, como se muestra en el siguiente fragmento de código:
- ```php
- protected $host = 'the_url';
- ```
-### Paso 5. Capturar los datos de la petición
+ > **NOTA:** Solamente en caso de que el contenedor se haya cifrado, debe colocarse la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
+ 
+### Paso 4. Modificar URL y credenciales
 
-Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
+ Modificar la URL y las credenciales de acceso a la petición en ***test/Api/ApiTest.php***, como se muestra en el siguiente fragmento de código:
+
 ```php
-<?php
 public function setUp()
 {
     $password = getenv('KEY_PASSWORD');
-    $this->signer = new \APIHub\Client\Interceptor\KeyHandler(null, null, $password);
-}    
-```
+    $this->signer = new KeyHandler(null, null, $password);
+
+    $events = new MiddlewareEvents($this->signer);
+    $handler = handlerStack::create();
+    $handler->push($events->add_signature_header('x-signature'));   
+    $handler->push($events->verify_signature_header('x-signature'));
+    $client = new Client(['handler' => $handler]);
+
+    $config = new Configuration();
+    $config->setHost('the_url');
+    
+    $this->apiInstance = new Instance($client, $config);
+    $this->x_api_key = "your_api_key";
+    $this->username = "your_username";
+    $this->password = "your_password";
+}   
+ ```
+ 
+### Paso 5. Capturar los datos de la petición
+
+Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
+
+> **NOTA:** Los datos de la siguiente petición son solo representativos.
+
 ```php
-<?php
+public function testGetReporte(){
+    $x_full_report = true;
 
-public function testGetReporte()
-    {
+    $estado = new CatalogoEstados();
+    $request = new PersonaPeticion();
 
-        $events = new \APIHub\Client\Interceptor\MiddlewareEvents($this->signer);
-        $handler = handlerStack::create();    
-        $handler->push($events->add_signature_header('x-signature'));
+    $request->setPrimerNombre("JUAN");
+    $request->setApellidoPaterno("PRUEBA");
+    $request->setApellidoMaterno("SIETE");
+    $request->setFechaNacimiento("1980-01-07");
+    $request->setRfc("PUAC800107");
+    $request->setNacionalidad("MX");
 
-        $handler->push($events->verify_signature_header('x-signature'));
-        $client = new \GuzzleHttp\Client([
-            'handler' => $handler,
-            'verify' => false
-        ]); 
+    $dom = new DomicilioPeticion();
+    $dom->setDireccion("INSURGENTES SUR 1001");
+    $dom->setColoniaPoblacion("INSURGENTES SUR");
+    $dom->setDelegacionMunicipio("CIUDAD DE MEXICO");
+    $dom->setCiudad("CIUDAD DE MEXICO");
+    $dom->setEstado($estado::DF);
+    $dom->setCP("11230");
 
-        $this->apiInstance = new \APIHub\Client\Api\ReporteDeCrditoApi($client);
+    $request->setDomicilio($dom);
 
-        $x_api_key = "your_api_key";
-        $username = "your_username";
-        $password = "your_password";
-
-        $request = new \APIHub\Client\Model\PersonaPeticion();
-        $request->setPrimerNombre("XXXXXXXXXX");
-        $request->setSegundoNombre(null);
-        $request->setApellidoPaterno("XXXXXXXXXX");
-        $request->setApellidoMaterno("XXXXXXXXXX");
-        $request->setApellidoAdicional(null);
-        $request->setFechaNacimiento("YYYY-MM-DD");
-        $request->setRfc("XXXXXXXXXX");
-        $request->setCurp(null);
-
-        $domicilio = new \APIHub\Client\Model\Domicilio();
-        $domicilio->setDireccion("XXXXXXXXXX");
-        $domicilio->setColonia("XXXXXXXXXX");
-        $domicilio->setCiudad("XXXXXXXXXX");
-        $domicilio->setCodigoPostal("XXXXXXXXXX");
-        $domicilio->setMunicipio("XXXXXXXXXX");
-        $domicilio->setEstado("XXX");
-        $request->setDomicilio($domicilio);
-
-        try {
-            $result = $this->apiInstance->getReporte($x_api_key, $username, $password, $request);
-            $this->signer->close();
-            print_r($result);
-            $this->assertTrue($result->getFolioConsulta()!==null);
-            return $result->getFolioConsulta();
-        } catch (Exception $e) {
-            echo 'Exception when calling ReporteDeCrditoApi->getReporte: ', $e->getMessage(), PHP_EOL;
-        }
+    try {
+        $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $x_full_report);
+        $this->assertTrue($result->getFolioConsulta()!==null);
+        print_r($result);            
+        echo "testGetReporte finished\n";
+        return $result->getFolioConsulta();
+    } catch (Exception $e) {
+        echo 'Exception when calling ReporteDeCrditoApi->getReporte: ', $e->getMessage(), PHP_EOL;
     }
-?>
+} 
 ```
+
 ## Pruebas unitarias
 
 Para ejecutar las pruebas unitarias:
