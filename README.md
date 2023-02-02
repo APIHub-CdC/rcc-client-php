@@ -136,7 +136,7 @@ Es importante contar con el setUp() que se encargará de firmar y verificar la p
 
 ```php
 public function testGetReporte(){
-    $x_full_report = true;
+   
 
     $estado = new CatalogoEstados();
     $request = new PersonaPeticion();
@@ -159,7 +159,7 @@ public function testGetReporte(){
     $request->setDomicilio($dom);
 
     try {
-        $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $x_full_report);
+        $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request);
         $this->assertTrue($result->getFolioConsulta()!==null);
         print_r($result);            
         echo "testGetReporte finished\n";
@@ -176,4 +176,10 @@ Para ejecutar las pruebas unitarias:
 ```sh
 ./vendor/bin/phpunit
 ```
+
+
+
+---
+[CONDICIONES DE USO, REPRODUCCIÓN Y DISTRIBUCIÓN](https://github.com/APIHub-CdC/licencias-cdc)
+
 [1]: https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos
